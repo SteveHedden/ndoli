@@ -8,14 +8,15 @@ ndoli gives you a structured, queryable KG that Claude reads at the start of eac
 
 The KG lives in `KG/` as Turtle (`.ttl`) files:
 
-| File | Contents |
-|------|----------|
-| `ontology.ttl` | Classes, properties, and constraints |
-| `contacts.ttl` | People and organizations (`foaf:Person`, `schema:Organization`) |
-| `opportunities.ttl` | Business and collaboration opportunities |
-| `projects.ttl` | Active and planned projects |
+| Example file (in repo) | Created by install.sh | Contents |
+|---|---|---|
+| `CLAUDE.md.example` | `CLAUDE.md` | Your personal context for Claude |
+| `KG/ontology.example.ttl` | `KG/ontology.ttl` | Classes, properties, and constraints |
+| `KG/contacts.example.ttl` | `KG/contacts.ttl` | People and organizations |
+| `KG/opportunities.example.ttl` | `KG/opportunities.ttl` | Business and collaboration opportunities |
+| `KG/projects.example.ttl` | `KG/projects.ttl` | Active and planned projects |
 
-The `*.ttl` instance files are created from `*.example.ttl` templates by `install.sh` on first run. They are gitignored so your personal data is never committed and `git pull` never overwrites your KG.
+All created files are gitignored — your personal data never touches GitHub and `git pull` never overwrites your KG.
 
 ## Setup
 

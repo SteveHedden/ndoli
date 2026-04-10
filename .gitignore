@@ -2,7 +2,11 @@
 .idea/
 *.swp
 
-# Personal KG data — never commit instance files
+# Personal files — never commit (created from *.example by install.sh)
+CLAUDE.md
+KG/ontology.ttl
 KG/contacts.ttl
 KG/opportunities.ttl
 KG/projects.ttl
+KG/engagements.ttl
+KG/metrics.ttl

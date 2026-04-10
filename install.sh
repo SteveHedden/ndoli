@@ -7,7 +7,16 @@ NDOLI_PATH="$(cd "$(dirname "$0")" && pwd)"
 mkdir -p ~/.claude
 echo "$NDOLI_PATH" > ~/.claude/ndoli_config
 
-# Copy example KG files on first run (never overwrite existing data)
+# Copy example files on first run (never overwrite existing data)
+# Handles CLAUDE.md.example → CLAUDE.md
+if [ ! -f "$NDOLI_PATH/CLAUDE.md" ]; then
+  cp "$NDOLI_PATH/CLAUDE.md.example" "$NDOLI_PATH/CLAUDE.md"
+  echo "Created: $NDOLI_PATH/CLAUDE.md"
+else
+  echo "Skipped (exists): $NDOLI_PATH/CLAUDE.md"
+fi
+
+# Handles KG/*.example.ttl → KG/*.ttl
 for example in "$NDOLI_PATH/KG/"*.example.ttl; do
   dest="${example%.example.ttl}.ttl"
   if [ ! -f "$dest" ]; then
