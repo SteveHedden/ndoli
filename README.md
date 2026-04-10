@@ -20,14 +20,15 @@ The `*.ttl` instance files are created from `*.example.ttl` templates by `instal
 ## Setup
 
 ```bash
-git clone https://github.com/you/ndoli ~/ndoli
+git clone https://github.com/SteveHedden/ndoli ~/ndoli
 cd ~/ndoli
 bash install.sh
 ```
 
-`install.sh` does two things:
+`install.sh` does three things:
 1. Writes `~/.claude/ndoli_config` with the path to your repo
-2. Symlinks the `/update-kg` skill into `~/.claude/skills/`
+2. Copies `KG/*.example.ttl` → `KG/*.ttl` (skips any that already exist)
+3. Symlinks the `/update-kg` skill into `~/.claude/skills/`
 
 ## Usage
 
