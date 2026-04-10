@@ -1,3 +1,8 @@
 .DS_Store
 .idea/
 *.swp
+
+# Personal KG data — never commit instance files
+KG/contacts.ttl
+KG/opportunities.ttl
+KG/projects.ttl

@@ -7,6 +7,17 @@ NDOLI_PATH="$(cd "$(dirname "$0")" && pwd)"
 mkdir -p ~/.claude
 echo "$NDOLI_PATH" > ~/.claude/ndoli_config
 
+# Copy example KG files on first run (never overwrite existing data)
+for example in "$NDOLI_PATH/KG/"*.example.ttl; do
+  dest="${example%.example.ttl}.ttl"
+  if [ ! -f "$dest" ]; then
+    cp "$example" "$dest"
+    echo "Created: $dest"
+  else
+    echo "Skipped (exists): $dest"
+  fi
+done
+
 # Symlink all skills into the global Claude skills directory
 mkdir -p ~/.claude/skills
 for skill in "$NDOLI_PATH/.claude/skills"/*/; do

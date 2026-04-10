@@ -15,6 +15,8 @@ The KG lives in `KG/` as Turtle (`.ttl`) files:
 | `opportunities.ttl` | Business and collaboration opportunities |
 | `projects.ttl` | Active and planned projects |
 
+The `*.ttl` instance files are created from `*.example.ttl` templates by `install.sh` on first run. They are gitignored so your personal data is never committed and `git pull` never overwrites your KG.
+
 ## Setup
 
 ```bash
