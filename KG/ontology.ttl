@@ -1,0 +1,99 @@
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf:    <http://xmlns.com/foaf/0.1/> .
+@prefix schema:  <https://schema.org/> .
+@prefix rel:     <https://ndoli.dev/rel/> .
+
+# ── Ontology Declaration ──────────────────────────────────────────────────────
+
+<https://ndoli.dev/ontology>
+    a owl:Ontology ;
+    rdfs:label "Personal KG Ontology" ;
+    rdfs:comment "Ontology for a personal professional knowledge graph — contacts, opportunities, and projects." ;
+    owl:versionInfo "0.1" .
+
+# ── Classes ───────────────────────────────────────────────────────────────────
+
+rel:Opportunity a owl:Class ;
+    rdfs:label "Opportunity" ;
+    rdfs:comment "A business, research, or collaboration opportunity being tracked." .
+
+rel:Project a owl:Class ;
+    rdfs:label "Project" ;
+    rdfs:comment "An active or planned project." .
+
+rel:Engagement a owl:Class ;
+    rdfs:label "Engagement" ;
+    rdfs:comment "A paid consulting or contracting engagement." .
+
+# ── Contact / Relationship Properties ────────────────────────────────────────
+
+rel:metVia a owl:DatatypeProperty ;
+    rdfs:label "met via" ;
+    rdfs:comment "How you first encountered this person." ;
+    rdfs:domain foaf:Person ;
+    rdfs:range xsd:string .
+
+rel:firstContact a owl:DatatypeProperty ;
+    rdfs:label "first contact date" ;
+    rdfs:domain foaf:Person ;
+    rdfs:range xsd:date .
+
+rel:lastContact a owl:DatatypeProperty ;
+    rdfs:label "last contact date" ;
+    rdfs:domain foaf:Person ;
+    rdfs:range xsd:date .
+
+rel:status a owl:DatatypeProperty ;
+    rdfs:label "status" ;
+    rdfs:comment "Current status. People: active, warm, cold, closed. Opportunities: active, pending, closed-won, closed-lost, deferred." ;
+    rdfs:range xsd:string .
+
+rel:notes a owl:DatatypeProperty ;
+    rdfs:label "notes" ;
+    rdfs:comment "Free-text notes. Append — do not replace." ;
+    rdfs:range xsd:string .
+
+rel:researchArea a owl:DatatypeProperty ;
+    rdfs:label "research/focus area" ;
+    rdfs:domain foaf:Person ;
+    rdfs:range xsd:string .
+
+# ── Link / Reference Properties ───────────────────────────────────────────────
+
+rel:email a owl:ObjectProperty ;
+    rdfs:label "email thread link" ;
+    rdfs:comment "Link to an email thread relevant to this entity." .
+
+rel:publication a owl:ObjectProperty ;
+    rdfs:label "publication" ;
+    rdfs:domain foaf:Person .
+
+rel:project a owl:ObjectProperty ;
+    rdfs:label "project link" ;
+    rdfs:comment "Link to a GitHub repo or project URL." .
+
+# ── Opportunity Properties ────────────────────────────────────────────────────
+
+rel:opportunity a owl:ObjectProperty ;
+    rdfs:label "opportunity" ;
+    rdfs:domain foaf:Person ;
+    rdfs:range rel:Opportunity .
+
+rel:contact a owl:ObjectProperty ;
+    rdfs:label "primary contact" ;
+    rdfs:domain rel:Opportunity ;
+    rdfs:range foaf:Person .
+
+rel:deadline a owl:DatatypeProperty ;
+    rdfs:label "deadline" ;
+    rdfs:domain rel:Opportunity ;
+    rdfs:range xsd:date .
+
+rel:value a owl:DatatypeProperty ;
+    rdfs:label "estimated value" ;
+    rdfs:domain rel:Opportunity ;
+    rdfs:range xsd:string .

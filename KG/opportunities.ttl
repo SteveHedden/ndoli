@@ -1,0 +1,19 @@
+@prefix schema:  <https://schema.org/> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix kg:      <https://ndoli.dev/contacts/> .
+@prefix rel:     <https://ndoli.dev/rel/> .
+
+<https://ndoli.dev/opportunities>
+    a owl:Ontology ;
+    owl:imports <https://ndoli.dev/ontology> .
+
+# ── Opportunities ─────────────────────────────────────────────────────────────
+
+# kg:opp_example a rel:Opportunity ;
+#     schema:name  "Example Corp — Consulting Engagement" ;
+#     rel:status   "active" ;
+#     rel:contact  kg:jane_smith ;
+#     rel:deadline "2026-06-01"^^xsd:date ;
+#     rel:value    "$50K" ;
+#     rel:notes    "Initial scoping call held Jan 20. Following up with proposal." .

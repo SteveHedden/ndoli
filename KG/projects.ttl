@@ -1,0 +1,17 @@
+@prefix schema:  <https://schema.org/> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix kg:      <https://ndoli.dev/contacts/> .
+@prefix rel:     <https://ndoli.dev/rel/> .
+
+<https://ndoli.dev/projects>
+    a owl:Ontology ;
+    owl:imports <https://ndoli.dev/ontology> .
+
+# ── Projects ──────────────────────────────────────────────────────────────────
+
+# kg:proj_example a rel:Project ;
+#     schema:name  "My KG Project" ;
+#     schema:url   <https://github.com/you/your-project> ;
+#     rel:status   "active" ;
+#     rel:notes    "Building a domain KG for sustainable development indicators." .
