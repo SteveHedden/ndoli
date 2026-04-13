@@ -52,11 +52,6 @@ rel:status a owl:DatatypeProperty ;
     rdfs:comment "Current status. People: active, warm, cold, closed. Opportunities: active, pending, closed-won, closed-lost, deferred." ;
     rdfs:range xsd:string .
 
-rel:notes a owl:DatatypeProperty ;
-    rdfs:label "notes" ;
-    rdfs:comment "Free-text notes. Append — do not replace." ;
-    rdfs:range xsd:string .
-
 rel:researchArea a owl:DatatypeProperty ;
     rdfs:label "research/focus area" ;
     rdfs:domain foaf:Person ;
@@ -75,6 +70,34 @@ rel:publication a owl:ObjectProperty ;
 rel:project a owl:ObjectProperty ;
     rdfs:label "project link" ;
     rdfs:comment "Link to a GitHub repo or project URL." .
+
+# ── Observation Properties ────────────────────────────────────────────────────
+
+rel:Observation a owl:Class ;
+    rdfs:label "Observation" ;
+    rdfs:comment "A dated, sourced interaction or finding. Immutable — create a new instance rather than editing." .
+
+rel:involves a owl:ObjectProperty ;
+    rdfs:label "involves" ;
+    rdfs:domain rel:Observation ;
+    rdfs:comment "Entity (person, org, opportunity, project) this observation concerns." .
+
+rel:observationDate a owl:DatatypeProperty ;
+    rdfs:label "observation date" ;
+    rdfs:domain rel:Observation ;
+    rdfs:range xsd:date .
+
+rel:interactionType a owl:DatatypeProperty ;
+    rdfs:label "interaction type" ;
+    rdfs:domain rel:Observation ;
+    rdfs:range xsd:string ;
+    rdfs:comment "meeting, call, email, async, read, event" .
+
+rel:content a owl:DatatypeProperty ;
+    rdfs:label "content" ;
+    rdfs:domain rel:Observation ;
+    rdfs:range xsd:string ;
+    rdfs:comment "What happened or was learned. Be specific — this is the evidence layer." .
 
 # ── Opportunity Properties ────────────────────────────────────────────────────
 

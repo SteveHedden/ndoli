@@ -18,11 +18,11 @@
 # ── People ────────────────────────────────────────────────────────────────────
 
 # kg:jane_smith a foaf:Person ;
-#     foaf:name       "Jane Smith" ;
-#     foaf:mbox       <mailto:jane@example.com> ;
-#     schema:jobTitle "Head of Data" ;
-#     schema:worksFor kg:org_example ;
-#     rel:metVia      "LinkedIn" ;
+#     foaf:name        "Jane Smith" ;
+#     foaf:mbox        <mailto:jane@example.com> ;
+#     schema:jobTitle  "Head of Data" ;
+#     schema:worksFor  kg:org_example ;
+#     rel:metVia       "LinkedIn" ;
 #     rel:firstContact "2026-01-15"^^xsd:date ;
-#     rel:status      "active" ;
-#     rel:notes       "Met at a KG conference. Interested in semantic AI." .
+#     rel:lastContact  "2026-01-15"^^xsd:date ;
+#     rel:status       "active" .

@@ -6,15 +6,20 @@ A personal knowledge graph (second brain) for Claude Code — tracks your profes
 
 ndoli gives you a structured, queryable KG that Claude reads at the start of each session. Instead of re-explaining your context every time, Claude already knows your contacts, opportunities, and projects.
 
-The KG lives in `KG/` as Turtle (`.ttl`) files:
+The KG lives in `KG/` as Turtle (`.ttl`) files, organized as three tiers:
 
-| Example file (in repo) | Created by install.sh | Contents |
-|---|---|---|
-| `CLAUDE.md.example` | `CLAUDE.md` | Your personal context for Claude |
-| `KG/ontology.example.ttl` | `KG/ontology.ttl` | Classes, properties, and constraints |
-| `KG/contacts.example.ttl` | `KG/contacts.ttl` | People and organizations |
-| `KG/opportunities.example.ttl` | `KG/opportunities.ttl` | Business and collaboration opportunities |
-| `KG/projects.example.ttl` | `KG/projects.ttl` | Active and planned projects |
+- **Tier 1 — Ontology:** classes and relationships (the theory of your professional world)
+- **Tier 2 — Controlled vocabularies:** catalogs of actual entities (your contacts, opportunities, projects)
+- **Tier 3 — Observations:** dated, immutable records of interactions and findings (the evidence layer)
+
+| Example file (in repo) | Created by install.sh | Tier | Contents |
+|---|---|---|---|
+| `CLAUDE.md.example` | `CLAUDE.md` | — | Your personal context for Claude |
+| `KG/ontology.example.ttl` | `KG/ontology.ttl` | 1 | Classes, properties, and constraints |
+| `KG/contacts.example.ttl` | `KG/contacts.ttl` | 2 | People and organizations |
+| `KG/opportunities.example.ttl` | `KG/opportunities.ttl` | 2 | Business and collaboration opportunities |
+| `KG/projects.example.ttl` | `KG/projects.ttl` | 2 | Active and planned projects |
+| `KG/observations.example.ttl` | `KG/observations.ttl` | 3 | Interactions and findings |
 
 All created files are gitignored — your personal data never touches GitHub and `git pull` never overwrites your KG.
 

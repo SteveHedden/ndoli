@@ -1,36 +1,42 @@
 ---
 name: update-kg
-description: Update the personal knowledge graph based on what happened in this session. Use at the end of any session where new contacts, opportunities, projects, or status changes came up.
+description: Update the knowledge graph based on what happened in this session. Use at the end of any session where new contacts, opportunities, projects, or status changes came up.
 ---
 
-First, find the ndoli repo path:
-- Read `~/.claude/ndoli_config` — it contains the absolute path to your ndoli repo (written by install.sh)
-- If that file doesn't exist, assume the KG is in the `KG/` directory of the current project
+Read `~/.claude/ndoli_config` to find the KG directory, then review this conversation from top to bottom and update the KG files.
 
-Review this conversation from top to bottom, then update the KG files in `{NDOLI_PATH}/KG/`.
-
-Read any files you need to before editing them. Work through these checks in order:
+Work through these checks in order:
 
 **1. New entities** — did any new people, orgs, opportunities, or projects come up?
    - Search existing TTL files by name before adding — no duplicates
-   - Put them in the right file for their class
-   - Create a new instance file if a new class has enough instances to warrant it
+   - Put them in the right Tier 2 file for their class (`contacts.ttl`, `opportunities.ttl`, `projects.ttl`)
+   - If the entity belongs to a new class not yet in the ontology, add the class to `ontology.ttl` first (step 5), then create a new Tier 2 file (e.g. `events.ttl`) if there are enough instances to warrant it — otherwise add to the closest existing file with a comment
+   - Stable facts only on the entity: name, org, role, `rel:firstContact`, `rel:lastContact`, `rel:status`
+   - No notes field — history goes in observations
 
-**2. Enrichment** — did we learn anything new about an existing entity?
-   - Status changes (active → warm, pending → closed-won, etc.)
-   - New meeting dates, follow-up dates, `rel:lastContact` dates
-   - New research areas, publications, projects
-   - Append to `rel:notes` — do not replace, append with new context
+**2. New observations** — did anything happen that should be recorded as evidence?
+   - Write a new `rel:Observation` instance to `observations.ttl`
+   - URI convention: `obs:ENTITY_YYYY_MM_DD` (append `_2`, `_3` if multiple on same day)
+   - Set `rel:involves` for each entity touched, `rel:observationDate`, `rel:interactionType`, `rel:content`
+   - Observations are immutable — create a new one, never edit an existing one
+   - Interaction types: `meeting`, `call`, `email`, `async`, `read`, `event`
 
-**3. Opportunity updates** — any status changes or deadline shifts?
+**3. Enrichment** — did we learn anything new about an existing entity's stable facts?
+   - Status changes (`active` → `warm`, `pending` → `closed-won`, etc.)
+   - Update `rel:lastContact` on the entity to match the most recent observation date
+   - New role, org, or research area
 
-**4. Ontology gaps** — did any new relationship type or property come up
-   that isn't modeled yet? If so, add it to `ontology.ttl`.
+**4. Opportunity updates** — any status changes or deadline shifts?
+
+**5. Ontology gaps** — did any new class, relationship type, or property come up that isn't modeled yet?
+   - New class: something that doesn't fit any existing class and warrants its own type (e.g. `rel:Event`, `rel:Publication`)
+   - New property: a relationship or attribute used on an entity that has no existing predicate
+   - Add anything new to `ontology.ttl` with a `rdfs:label` and `rdfs:comment`
 
 **Conventions:**
-- `kg:` prefix, snake_case URIs (e.g., `kg:jane_smith`, `kg:opp_acme_graphrag`)
+- Use the prefix and snake_case URIs established in the existing TTL files
 - Dates: `"YYYY-MM-DD"^^xsd:date`
-- `rel:notes` — single rich string per entity, append don't replace
+- Link source material via `rel:email <https://mail.google.com/...>` on the observation
 - Status (people): `active`, `warm`, `cold`, `closed`
 - Status (opportunities): `active`, `pending`, `closed-won`, `closed-lost`, `deferred`
 

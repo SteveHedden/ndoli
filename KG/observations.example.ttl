@@ -1,0 +1,28 @@
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix kg:      <https://ndoli.dev/contacts/> .
+@prefix obs:     <https://ndoli.dev/observations/> .
+@prefix rel:     <https://ndoli.dev/rel/> .
+
+<https://ndoli.dev/observations>
+    a owl:Ontology ;
+    owl:imports <https://ndoli.dev/ontology> .
+
+# ── Observations ──────────────────────────────────────────────────────────────
+# Each observation is a dated, immutable record of an interaction or finding.
+# Create a new instance rather than editing an existing one.
+# URI convention: obs:ENTITY_YYYY_MM_DD (add _2, _3 if multiple on same day)
+
+# obs:jane_smith_2026_01_15 a rel:Observation ;
+#     rel:involves        kg:jane_smith ;
+#     rel:involves        kg:opp_example ;
+#     rel:observationDate "2026-01-15"^^xsd:date ;
+#     rel:interactionType "meeting" ;
+#     rel:content         "First call. Walked through their data model. Interested in a semantic layer pilot — budget decision in Q2. Jane to introduce me to their CTO." .
+
+# obs:jane_smith_2026_02_10 a rel:Observation ;
+#     rel:involves        kg:jane_smith ;
+#     rel:observationDate "2026-02-10"^^xsd:date ;
+#     rel:interactionType "email" ;
+#     rel:content         "Follow-up thread. CTO intro set for Feb 20. Opportunity moving forward." .

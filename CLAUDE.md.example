@@ -8,12 +8,13 @@ This repo is your personal knowledge graph (second brain) — it tracks your pro
 
 The KG lives in `KG/`. Each file holds instances of one class:
 
-- `ontology.ttl` — classes, properties, constraints
-- `contacts.ttl` — instances of `foaf:Person` and `schema:Organization`
-- `opportunities.ttl` — instances of `rel:Opportunity`
-- `projects.ttl` — instances of `rel:Project`
+The KG has three tiers:
 
-Each instance file imports the ontology via `owl:imports`. Cross-file references use the shared `kg:` namespace — no duplication needed.
+- **Tier 1 — Ontology:** `ontology.ttl` — classes, properties, constraints
+- **Tier 2 — Entities:** `contacts.ttl`, `opportunities.ttl`, `projects.ttl` — stable facts about real-world instances
+- **Tier 3 — Observations:** `observations.ttl` — dated, immutable records of interactions and findings
+
+Each file imports the ontology via `owl:imports`. Cross-file references use the shared `kg:` namespace — no duplication needed.
 
 ### At session start — read the KG
 

@@ -15,5 +15,4 @@
 #     rel:status   "active" ;
 #     rel:contact  kg:jane_smith ;
 #     rel:deadline "2026-06-01"^^xsd:date ;
-#     rel:value    "$50K" ;
-#     rel:notes    "Initial scoping call held Jan 20. Following up with proposal." .
+#     rel:value    "$50K" .
