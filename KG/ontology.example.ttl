@@ -6,7 +6,7 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix foaf:    <http://xmlns.com/foaf/0.1/> .
 @prefix schema:  <https://schema.org/> .
-@prefix rel:     <https://ndoli.dev/rel/> .
+@prefix ndoli:   <https://ndoli.dev/> .
 
 # ── Ontology Declaration ──────────────────────────────────────────────────────
 
@@ -14,140 +14,111 @@
     a owl:Ontology ;
     rdfs:label "Personal KG Ontology" ;
     rdfs:comment "Ontology for a personal professional knowledge graph — contacts, opportunities, and projects." ;
-    owl:versionInfo "0.2" .
+    owl:versionInfo "0.3" .
 
 # ── Classes ───────────────────────────────────────────────────────────────────
 #
 # Each class is declared as both an OWL class and a SHACL NodeShape.
-# OWL handles semantics (inference, domain/range, reasoning).
-# SHACL property shapes document expected structure for each class.
-# No sh:minCount or sh:maxCount — shapes are descriptive, not enforced.
+# OWL handles semantics; SHACL shapes document expected structure.
+# Shapes are descriptive, not enforced (no sh:minCount / sh:maxCount).
+#
+# Standard vocab used where it fits:
+#   schema:Project        — built-in schema.org class, no redeclaration needed
+#   schema:endDate        — opportunity deadline
+#   schema:knowsAbout     — research / focus areas on foaf:Person
+#   schema:codeRepository — repo URL on schema:Project
+#   dcterms:date          — date of an observation
+#   schema:description    — content / notes on an observation
+#   dcterms:source        — provenance URI on an observation
 
-rel:Opportunity a owl:Class, sh:NodeShape ;
-    sh:targetClass rel:Opportunity ;
+ndoli:Opportunity a owl:Class, sh:NodeShape ;
+    sh:targetClass ndoli:Opportunity ;
     rdfs:label "Opportunity" ;
     rdfs:comment "A business, research, or collaboration opportunity being tracked." ;
     sh:property [ sh:path schema:name    ; sh:datatype xsd:string ] ;
-    sh:property [ sh:path rel:status     ; sh:datatype xsd:string ] ;
-    sh:property [ sh:path rel:contact    ; sh:class foaf:Person   ] ;
-    sh:property [ sh:path rel:deadline   ; sh:datatype xsd:date   ] ;
-    sh:property [ sh:path rel:value      ; sh:datatype xsd:string ] .
+    sh:property [ sh:path ndoli:status   ; sh:datatype xsd:string ] ;
+    sh:property [ sh:path ndoli:contact  ; sh:class foaf:Person   ] ;
+    sh:property [ sh:path schema:endDate ; sh:datatype xsd:date   ] ;
+    sh:property [ sh:path ndoli:value    ; sh:datatype xsd:string ] .
 
-rel:Project a owl:Class, sh:NodeShape ;
-    sh:targetClass rel:Project ;
-    rdfs:label "Project" ;
-    rdfs:comment "An active or planned project." ;
-    sh:property [ sh:path schema:name ; sh:datatype xsd:string ] ;
-    sh:property [ sh:path rel:status  ; sh:datatype xsd:string ] ;
-    sh:property [ sh:path rel:project                          ] .
+schema:Project a sh:NodeShape ;
+    sh:targetClass schema:Project ;
+    sh:property [ sh:path schema:name           ; sh:datatype xsd:string ] ;
+    sh:property [ sh:path ndoli:status          ; sh:datatype xsd:string ] ;
+    sh:property [ sh:path schema:codeRepository                          ] .
 
-rel:Engagement a owl:Class, sh:NodeShape ;
-    sh:targetClass rel:Engagement ;
+ndoli:Engagement a owl:Class, sh:NodeShape ;
+    sh:targetClass ndoli:Engagement ;
     rdfs:label "Engagement" ;
     rdfs:comment "A paid consulting or contracting engagement." ;
-    sh:property [ sh:path schema:name ; sh:datatype xsd:string ] ;
-    sh:property [ sh:path rel:status  ; sh:datatype xsd:string ] ;
-    sh:property [ sh:path rel:contact ; sh:class foaf:Person   ] .
+    sh:property [ sh:path schema:name   ; sh:datatype xsd:string ] ;
+    sh:property [ sh:path ndoli:status  ; sh:datatype xsd:string ] ;
+    sh:property [ sh:path ndoli:contact ; sh:class foaf:Person   ] .
 
 # ── Contact / Relationship Properties ────────────────────────────────────────
 
-rel:metVia a owl:DatatypeProperty ;
+ndoli:metVia a owl:DatatypeProperty ;
     rdfs:label "met via" ;
     rdfs:comment "How you first encountered this person." ;
     rdfs:domain foaf:Person ;
     rdfs:range xsd:string .
 
-rel:firstContact a owl:DatatypeProperty ;
+ndoli:firstContact a owl:DatatypeProperty ;
     rdfs:label "first contact date" ;
     rdfs:domain foaf:Person ;
     rdfs:range xsd:date .
 
-rel:lastContact a owl:DatatypeProperty ;
+ndoli:lastContact a owl:DatatypeProperty ;
     rdfs:label "last contact date" ;
     rdfs:domain foaf:Person ;
     rdfs:range xsd:date .
 
-rel:status a owl:DatatypeProperty ;
+ndoli:status a owl:DatatypeProperty ;
     rdfs:label "status" ;
     rdfs:comment "Current status. People: active, warm, cold, closed. Opportunities: active, pending, closed-won, closed-lost, deferred." ;
     rdfs:range xsd:string .
 
-rel:researchArea a owl:DatatypeProperty ;
-    rdfs:label "research/focus area" ;
-    rdfs:domain foaf:Person ;
-    rdfs:range xsd:string .
-
-# ── Link / Reference Properties ───────────────────────────────────────────────
-
-rel:email a owl:ObjectProperty ;
-    rdfs:label "email thread link" ;
-    rdfs:comment "Link to an email thread relevant to this entity." .
-
-rel:publication a owl:ObjectProperty ;
+ndoli:publication a owl:ObjectProperty ;
     rdfs:label "publication" ;
+    rdfs:comment "Link to a publication (arXiv, DOI, etc.) authored by or relevant to this person." ;
     rdfs:domain foaf:Person .
-
-rel:project a owl:ObjectProperty ;
-    rdfs:label "project link" ;
-    rdfs:comment "Link to a GitHub repo or project URL." .
 
 # ── Observation ───────────────────────────────────────────────────────────────
 
-rel:Observation a owl:Class, sh:NodeShape ;
-    sh:targetClass rel:Observation ;
+ndoli:Observation a owl:Class, sh:NodeShape ;
+    sh:targetClass ndoli:Observation ;
     rdfs:label "Observation" ;
     rdfs:comment "A dated, sourced interaction or finding. Immutable — create a new instance rather than editing." ;
-    sh:property [ sh:path rel:involves        ] ;
-    sh:property [ sh:path rel:observationDate ; sh:datatype xsd:date   ] ;
-    sh:property [ sh:path rel:interactionType ; sh:datatype xsd:string ] ;
-    sh:property [ sh:path rel:content         ; sh:datatype xsd:string ] ;
-    sh:property [ sh:path rel:source                                   ] .
+    sh:property [ sh:path ndoli:involves         ] ;
+    sh:property [ sh:path dcterms:date           ; sh:datatype xsd:date   ] ;
+    sh:property [ sh:path ndoli:interactionType  ; sh:datatype xsd:string ] ;
+    sh:property [ sh:path schema:description     ; sh:datatype xsd:string ] ;
+    sh:property [ sh:path dcterms:source                                  ] .
 
-rel:involves a owl:ObjectProperty ;
+ndoli:involves a owl:ObjectProperty ;
     rdfs:label "involves" ;
-    rdfs:domain rel:Observation ;
+    rdfs:domain ndoli:Observation ;
     rdfs:comment "Entity (person, org, opportunity, project) this observation concerns." .
 
-rel:observationDate a owl:DatatypeProperty ;
-    rdfs:label "observation date" ;
-    rdfs:domain rel:Observation ;
-    rdfs:range xsd:date .
-
-rel:interactionType a owl:DatatypeProperty ;
+ndoli:interactionType a owl:DatatypeProperty ;
     rdfs:label "interaction type" ;
-    rdfs:domain rel:Observation ;
+    rdfs:domain ndoli:Observation ;
     rdfs:range xsd:string ;
     rdfs:comment "meeting, call, email, async, read, event" .
 
-rel:content a owl:DatatypeProperty ;
-    rdfs:label "content" ;
-    rdfs:domain rel:Observation ;
-    rdfs:range xsd:string ;
-    rdfs:comment "What happened or was learned. Be specific — this is the evidence layer." .
-
-rel:source a owl:ObjectProperty ;
-    rdfs:label "source" ;
-    rdfs:domain rel:Observation ;
-    rdfs:comment "URI pointing to where this observation is documented — a file path, email thread, URL, calendar event, or any other locatable artifact. Use as many as apply." .
-
 # ── Opportunity Properties ────────────────────────────────────────────────────
 
-rel:opportunity a owl:ObjectProperty ;
+ndoli:opportunity a owl:ObjectProperty ;
     rdfs:label "opportunity" ;
     rdfs:domain foaf:Person ;
-    rdfs:range rel:Opportunity .
+    rdfs:range ndoli:Opportunity .
 
-rel:contact a owl:ObjectProperty ;
+ndoli:contact a owl:ObjectProperty ;
     rdfs:label "primary contact" ;
-    rdfs:domain rel:Opportunity ;
+    rdfs:domain ndoli:Opportunity ;
     rdfs:range foaf:Person .
 
-rel:deadline a owl:DatatypeProperty ;
-    rdfs:label "deadline" ;
-    rdfs:domain rel:Opportunity ;
-    rdfs:range xsd:date .
-
-rel:value a owl:DatatypeProperty ;
+ndoli:value a owl:DatatypeProperty ;
     rdfs:label "estimated value" ;
-    rdfs:domain rel:Opportunity ;
+    rdfs:domain ndoli:Opportunity ;
     rdfs:range xsd:string .

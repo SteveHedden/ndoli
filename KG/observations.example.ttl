@@ -1,9 +1,11 @@
 @prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
 @prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix schema:  <https://schema.org/> .
 @prefix kg:      <https://ndoli.dev/contacts/> .
 @prefix obs:     <https://ndoli.dev/observations/> .
-@prefix rel:     <https://ndoli.dev/rel/> .
+@prefix ndoli:   <https://ndoli.dev/> .
 
 <https://ndoli.dev/observations>
     a owl:Ontology ;
@@ -14,17 +16,17 @@
 # Create a new instance rather than editing an existing one.
 # URI convention: obs:ENTITY_YYYY_MM_DD (add _2, _3 if multiple on same day)
 
-# obs:jane_smith_2026_01_15 a rel:Observation ;
-#     rel:involves        kg:jane_smith ;
-#     rel:involves        kg:opp_example ;
-#     rel:observationDate "2026-01-15"^^xsd:date ;
-#     rel:interactionType "meeting" ;
-#     rel:content         "Coffee meeting. Caught up on what each other has been working on. Jane's team is spinning up a new initiative in Q3 — she'll loop me in once the brief is finalized." ;
-#     rel:source          <file:///Users/you/notes/jane-smith-2026-01-15.md> .
+# obs:jane_smith_2026_01_15 a ndoli:Observation ;
+#     ndoli:involves        kg:jane_smith ;
+#     ndoli:involves        kg:opp_example ;
+#     dcterms:date          "2026-01-15"^^xsd:date ;
+#     ndoli:interactionType "meeting" ;
+#     schema:description    "Coffee meeting. Caught up on what each other has been working on. Jane's team is spinning up a new initiative in Q3 — she'll loop me in once the brief is finalized." ;
+#     dcterms:source        <file:///Users/you/notes/jane-smith-2026-01-15.md> .
 
-# obs:jane_smith_2026_02_10 a rel:Observation ;
-#     rel:involves        kg:jane_smith ;
-#     rel:observationDate "2026-02-10"^^xsd:date ;
-#     rel:interactionType "email" ;
-#     rel:content         "Email thread. Jane confirmed the brief is ready — intro to her team lead set for Feb 20." ;
-#     rel:source          <https://mail.google.com/mail/u/0/#all/abc123> .
+# obs:jane_smith_2026_02_10 a ndoli:Observation ;
+#     ndoli:involves        kg:jane_smith ;
+#     dcterms:date          "2026-02-10"^^xsd:date ;
+#     ndoli:interactionType "email" ;
+#     schema:description    "Email thread. Jane confirmed the brief is ready — intro to her team lead set for Feb 20." ;
+#     dcterms:source        <https://mail.google.com/mail/u/0/#all/abc123> .
