@@ -3,7 +3,7 @@ name: update-kg
 description: Update the knowledge graph based on what happened in this session. Use at the end of any session where new contacts, opportunities, projects, or status changes came up.
 ---
 
-Read `~/.claude/ndoli_config` to find the KG directory, then review this conversation from top to bottom and update the KG files.
+Read `~/.claude/ndoli_config` to get the absolute path to the KG directory. All TTL file reads and writes must use that path — not the current working directory, not any repo you happen to be in. Then review this conversation from top to bottom and update the KG files at that path.
 
 Work through these checks in order:
 
