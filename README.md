@@ -1,6 +1,6 @@
 # ndoli
 
-A personal knowledge graph (second brain) for Claude Code — tracks your professional network, projects, and opportunities using semantic web standards (RDF/OWL).
+A personal knowledge graph (second brain) for Claude Code — tracks your professional network, projects, and opportunities using semantic web standards (RDF/OWL/SHACL).
 
 ## What it is
 
@@ -15,11 +15,11 @@ The KG lives in `KG/` as Turtle (`.ttl`) files, organized as three tiers:
 | Example file (in repo) | Created by install.sh | Tier | Contents |
 |---|---|---|---|
 | `CLAUDE.md.example` | `CLAUDE.md` | — | Your personal context for Claude |
-| `KG/ontology.example.ttl` | `KG/ontology.ttl` | 1 | Classes, properties, and constraints |
+| `KG/ontology.example.ttl` | `KG/ontology.ttl` | 1 | Classes and properties (OWL) + node/property shapes (SHACL) |
 | `KG/contacts.example.ttl` | `KG/contacts.ttl` | 2 | People and organizations |
 | `KG/opportunities.example.ttl` | `KG/opportunities.ttl` | 2 | Business and collaboration opportunities |
 | `KG/projects.example.ttl` | `KG/projects.ttl` | 2 | Active and planned projects |
-| `KG/observations.example.ttl` | `KG/observations.ttl` | 3 | Interactions and findings |
+| `KG/observations.example.ttl` | `KG/observations.ttl` | 3 | Interactions and findings, with source provenance |
 
 All created files are gitignored — your personal data never touches GitHub and `git pull` never overwrites your KG.
 

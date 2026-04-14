@@ -18,6 +18,7 @@ Work through these checks in order:
    - Write a new `rel:Observation` instance to `observations.ttl`
    - URI convention: `obs:ENTITY_YYYY_MM_DD` (append `_2`, `_3` if multiple on same day)
    - Set `rel:involves` for each entity touched, `rel:observationDate`, `rel:interactionType`, `rel:content`
+   - Set `rel:source` to any URI that documents the observation — email thread, local file, calendar event, URL. Use multiple `rel:source` triples if the observation is documented in more than one place. Provenance is the point.
    - Observations are immutable — create a new one, never edit an existing one
    - Interaction types: `meeting`, `call`, `email`, `async`, `read`, `event`
 

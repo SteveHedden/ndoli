@@ -19,10 +19,12 @@
 #     rel:involves        kg:opp_example ;
 #     rel:observationDate "2026-01-15"^^xsd:date ;
 #     rel:interactionType "meeting" ;
-#     rel:content         "First call. Walked through their data model. Interested in a semantic layer pilot — budget decision in Q2. Jane to introduce me to their CTO." .
+#     rel:content         "Coffee meeting. Caught up on what each other has been working on. Jane's team is spinning up a new initiative in Q3 — she'll loop me in once the brief is finalized." ;
+#     rel:source          <file:///Users/you/notes/jane-smith-2026-01-15.md> .
 
 # obs:jane_smith_2026_02_10 a rel:Observation ;
 #     rel:involves        kg:jane_smith ;
 #     rel:observationDate "2026-02-10"^^xsd:date ;
 #     rel:interactionType "email" ;
-#     rel:content         "Follow-up thread. CTO intro set for Feb 20. Opportunity moving forward." .
+#     rel:content         "Email thread. Jane confirmed the brief is ready — intro to her team lead set for Feb 20." ;
+#     rel:source          <https://mail.google.com/mail/u/0/#all/abc123> .

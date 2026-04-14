@@ -11,7 +11,6 @@
 # ── Projects ──────────────────────────────────────────────────────────────────
 
 # kg:proj_example a rel:Project ;
-#     schema:name  "My KG Project" ;
+#     schema:name  "Example Project" ;
 #     schema:url   <https://github.com/you/your-project> ;
-#     rel:status   "active" ;
-#     rel:notes    "Building a domain KG for sustainable development indicators." .
+#     rel:status   "active" .

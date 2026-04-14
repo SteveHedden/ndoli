@@ -11,8 +11,7 @@
 # ── Opportunities ─────────────────────────────────────────────────────────────
 
 # kg:opp_example a rel:Opportunity ;
-#     schema:name  "Example Corp — Consulting Engagement" ;
+#     schema:name  "Example Corp — Q2 Proposal" ;
 #     rel:status   "active" ;
 #     rel:contact  kg:jane_smith ;
-#     rel:deadline "2026-06-01"^^xsd:date ;
-#     rel:value    "$50K" .
+#     rel:deadline "2026-06-01"^^xsd:date .
