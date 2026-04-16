@@ -1,4 +1,4 @@
-# Knowledge Graph — Claude Instructions
+# Knowledge Graph — Codex Instructions
 
 This is your personal knowledge graph (second brain) — it tracks your professional network, projects, and opportunities using semantic web standards (RDF/OWL).
 
@@ -28,7 +28,7 @@ Use the `/update-kg` skill at the end of any session where new contacts, opportu
 
 ## About You
 
-Fill in your context here so Claude can tailor its responses:
+Fill in your context here so Codex can tailor its responses:
 
 - **Name:**
 - **Role:**

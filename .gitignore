@@ -4,6 +4,7 @@
 
 # Personal files — never commit (created from *.example by install.sh)
 CLAUDE.md
+AGENTS.md
 KG/ontology.ttl
 KG/contacts.ttl
 KG/opportunities.ttl
