@@ -14,7 +14,7 @@
     a owl:Ontology ;
     rdfs:label "Personal KG Ontology" ;
     rdfs:comment "Ontology for a personal professional knowledge graph — contacts, opportunities, and projects." ;
-    owl:versionInfo "0.3" .
+    owl:versionInfo "0.4" .
 
 # ── Classes ───────────────────────────────────────────────────────────────────
 #
@@ -23,13 +23,20 @@
 # Shapes are descriptive, not enforced (no sh:minCount / sh:maxCount).
 #
 # Standard vocab used where it fits:
-#   schema:Project        — built-in schema.org class, no redeclaration needed
-#   schema:endDate        — opportunity deadline
-#   schema:knowsAbout     — research / focus areas on foaf:Person
-#   schema:codeRepository — repo URL on schema:Project
-#   dcterms:date          — date of an observation
-#   schema:description    — content / notes on an observation
-#   dcterms:source        — provenance URI on an observation
+#   schema:Project          — built-in schema.org class, no redeclaration needed
+#   schema:endDate          — opportunity deadline
+#   schema:knowsAbout       — research / focus areas on foaf:Person
+#   schema:codeRepository   — repo URL on schema:Project
+#   dcterms:date            — date of an observation
+#   schema:description      — content / notes on an observation
+#   dcterms:source          — provenance URI on an observation
+#   schema:DigitalDocument  — personal/business records (prescriptions, filings, etc.)
+#   dcterms:type            — record type string on schema:DigitalDocument
+#   dcterms:issued          — issue date on schema:DigitalDocument
+#   dcterms:valid           — expiry date on schema:DigitalDocument
+#   dcterms:creator         — issuing party on schema:DigitalDocument
+#   dcterms:description     — key facts on schema:DigitalDocument
+#   schema:about            — subject (foaf:Person or org) of a document
 
 ndoli:Opportunity a owl:Class, sh:NodeShape ;
     sh:targetClass ndoli:Opportunity ;
@@ -121,4 +128,26 @@ ndoli:contact a owl:ObjectProperty ;
 ndoli:value a owl:DatatypeProperty ;
     rdfs:label "estimated value" ;
     rdfs:domain ndoli:Opportunity ;
+    rdfs:range xsd:string .
+
+# ── Document / Record ─────────────────────────────────────────────────────────
+# Uses schema:DigitalDocument as the class with dcterms properties where they
+# fit. ndoli:fileRef is the only custom term — nothing in schema.org/dcterms
+# maps to "relative path to this file on disk."
+
+schema:DigitalDocument a sh:NodeShape ;
+    sh:targetClass schema:DigitalDocument ;
+    sh:property [ sh:path dcterms:type        ; sh:datatype xsd:string ] ;
+    sh:property [ sh:path dcterms:title       ; sh:datatype xsd:string ] ;
+    sh:property [ sh:path dcterms:issued      ; sh:datatype xsd:date   ] ;
+    sh:property [ sh:path dcterms:valid       ; sh:datatype xsd:date   ] ;
+    sh:property [ sh:path dcterms:creator     ; sh:datatype xsd:string ] ;
+    sh:property [ sh:path dcterms:description ; sh:datatype xsd:string ] ;
+    sh:property [ sh:path schema:about                                  ] ;
+    sh:property [ sh:path ndoli:fileRef       ; sh:datatype xsd:string ] .
+
+ndoli:fileRef a owl:DatatypeProperty ;
+    rdfs:label "file reference" ;
+    rdfs:comment "Relative path (from repo root) to the document file on disk." ;
+    rdfs:domain schema:DigitalDocument ;
     rdfs:range xsd:string .
