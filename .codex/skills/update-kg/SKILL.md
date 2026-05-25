@@ -1,6 +1,6 @@
 ---
 name: update-kg
-description: Update the knowledge graph based on what happened in this session. Use at the end of any session where new contacts, opportunities, projects, or status changes came up.
+description: Update the ndoli personal knowledge graph. Run once at the end of a session — only when something actionable actually happened: a new contact was made, an email was sent, a meeting occurred, a deal status changed. Do not invoke mid-conversation or just because entities were discussed.
 ---
 
 Read `~/.codex/config.toml`, find the `[ndoli]` section, and use the `path` value as the absolute path to the KG directory. All TTL file reads and writes must use that path — not the current working directory, not any repo you happen to be in. Then review this conversation from top to bottom and update the KG files at that path.
