@@ -1,0 +1,358 @@
+<title>ndoli — preserve your thoughts, forever</title>
+<style>
+  :root {
+    --bg: #eceae4;
+    --bg-2: #e2ddd2;
+    --ink: #14171a;
+    --ink-dim: #5b5f66;
+    --accent: #3f6b78;
+    --accent-2: #7fa3ad;
+    --line: rgba(20,23,26,0.14);
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+    --sans: "Neue Haas Grotesk Text Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", "Cascadia Mono", "Roboto Mono", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #08090b;
+      --bg-2: #101216;
+      --ink: #d9d5cc;
+      --ink-dim: #8b8d92;
+      --accent: #b9d8e0;
+      --accent-2: #6f96a1;
+      --line: rgba(217,213,204,0.12);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #08090b;
+    --bg-2: #101216;
+    --ink: #d9d5cc;
+    --ink-dim: #8b8d92;
+    --accent: #b9d8e0;
+    --accent-2: #6f96a1;
+    --line: rgba(217,213,204,0.12);
+  }
+  :root[data-theme="light"] {
+    --bg: #eceae4;
+    --bg-2: #e2ddd2;
+    --ink: #14171a;
+    --ink-dim: #5b5f66;
+    --accent: #3f6b78;
+    --accent-2: #7fa3ad;
+    --line: rgba(20,23,26,0.14);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: inherit; }
+  ::selection { background: var(--accent); color: var(--bg); }
+
+  :focus-visible {
+    outline: 1px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  .veil {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,0,0,0), var(--bg) 92%);
+    z-index: 1;
+    opacity: 0.6;
+  }
+
+  .wrap {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 32px;
+    position: relative;
+    z-index: 2;
+  }
+
+  header.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 0 0;
+  }
+  .mark {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .mark span { color: var(--ink-dim); }
+  .top .label {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+
+  .hero {
+    padding: 88px 0 64px;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 24px;
+    align-items: center;
+  }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent-2);
+    margin: 0 0 22px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px 1px var(--accent);
+    flex: none;
+    animation: blink 3.2s ease-in-out infinite;
+  }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+
+  h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(42px, 6.4vw, 78px);
+    line-height: 1.02;
+    letter-spacing: -0.01em;
+    margin: 0 0 26px;
+    text-wrap: balance;
+    font-style: italic;
+  }
+
+  .sub {
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--ink-dim);
+    max-width: 46ch;
+    margin: 0 0 38px;
+  }
+  .sub em { color: var(--ink); font-style: normal; }
+
+  .cta-row { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+  .cta {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--bg);
+    background: var(--ink);
+    border: 1px solid var(--ink);
+    padding: 15px 26px;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+  .cta:hover { background: transparent; color: var(--ink); }
+  .fine {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.04em;
+    color: var(--ink-dim);
+    opacity: 0.75;
+    max-width: 34ch;
+  }
+
+  .crystal-wrap {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  canvas#crystal {
+    width: 100%;
+    max-width: 340px;
+    height: auto;
+    color: var(--accent);
+  }
+  .telemetry {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    color: var(--accent-2);
+    margin-top: 6px;
+    text-align: center;
+    opacity: 0.85;
+    font-variant-numeric: tabular-nums;
+  }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 28px 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  footer .mark { opacity: 0.8; }
+  footer .tag {
+    font-style: italic;
+    font-family: var(--serif);
+    font-size: 13px;
+    color: var(--ink-dim);
+  }
+
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; padding-bottom: 96px; }
+    .crystal-wrap { order: -1; margin-bottom: 12px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .eyebrow::before { animation: none; }
+  }
+</style>
+
+<div class="veil"></div>
+
+<div class="wrap">
+  <header class="top">
+    <div class="mark">ndoli<span>.ai</span></div>
+    <div class="label">neural mirror &mdash; prototype 004</div>
+  </header>
+
+  <section class="hero">
+    <div>
+      <p class="eyebrow">Second brain</p>
+      <h1>Preserve your&nbsp;thoughts.<br />Forever.</h1>
+      <p class="sub">It remembers everything you say &mdash; <em>and, in time, everything you would have said.</em></p>
+      <div class="cta-row">
+        <a class="cta" href="https://github.com/SteveHedden/ndoli">Begin preservation</a>
+      </div>
+    </div>
+    <div class="crystal-wrap">
+      <canvas id="crystal" width="340" height="420" aria-label="A slowly rotating faceted crystal" role="img"></canvas>
+      <div class="telemetry" id="telemetry">SYNC 00.000% &middot; LISTENING</div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="mark">ndoli<span>.ai</span></div>
+    <div class="tag">a mind, mirrored</div>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var canvas = document.getElementById('crystal');
+  var ctx = canvas.getContext('2d');
+  var telemetry = document.getElementById('telemetry');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var W = canvas.width, H = canvas.height;
+  var cx = W / 2, cy = H / 2 - 8;
+
+  function getAccent() {
+    var c = getComputedStyle(canvas).color;
+    var m = c.match(/\d+(\.\d+)?/g);
+    if (!m) return [185, 216, 224];
+    return [parseFloat(m[0]), parseFloat(m[1]), parseFloat(m[2])];
+  }
+
+  var N = 6;
+  var topY = -150, ringTopY = -50, ringBotY = 60, botY = 165;
+  var ringTopR = 62, ringBotR = 92;
+
+  function project(angle, radius, y, rotation, scale) {
+    var a = angle + rotation;
+    var x = Math.cos(a) * radius * scale;
+    var depth = Math.sin(a);
+    return { x: cx + x, y: cy + y, depth: depth };
+  }
+
+  function shade(rgb, depth, alpha) {
+    var light = 0.35 + 0.65 * ((depth + 1) / 2);
+    var r = Math.min(255, rgb[0] * light + 255 * (1 - light) * 0.15);
+    var g = Math.min(255, rgb[1] * light + 255 * (1 - light) * 0.15);
+    var b = Math.min(255, rgb[2] * light + 255 * (1 - light) * 0.15);
+    return 'rgba(' + r.toFixed(0) + ',' + g.toFixed(0) + ',' + b.toFixed(0) + ',' + alpha + ')';
+  }
+
+  function draw(t) {
+    ctx.clearRect(0, 0, W, H);
+    var rgb = getAccent();
+    var rotation = reduce ? 0.6 : t * 0.00028;
+    var pulse = reduce ? 1 : 1 + 0.018 * Math.sin(t * 0.0016);
+    var scale = 1;
+
+    var apexTop = { x: cx, y: cy + topY * pulse, depth: 1 };
+    var apexBot = { x: cx, y: cy + botY * pulse, depth: 1 };
+
+    var upper = [], lower = [];
+    for (var i = 0; i < N; i++) {
+      var ang = (i / N) * Math.PI * 2;
+      upper.push(project(ang, ringTopR * pulse, ringTopY * pulse, rotation, scale));
+      lower.push(project(ang, ringBotR * pulse, ringBotY * pulse, rotation, scale));
+    }
+
+    var faces = [];
+    for (var i = 0; i < N; i++) {
+      var j = (i + 1) % N;
+      var d = (upper[i].depth + upper[j].depth) / 2;
+      faces.push({ d: d, type: 'crown', a: apexTop, b: upper[i], c: upper[j] });
+      var d2 = (upper[i].depth + upper[j].depth + lower[i].depth + lower[j].depth) / 4;
+      faces.push({ d: d2, type: 'girdle', a: upper[i], b: upper[j], c: lower[j], e: lower[i] });
+      var d3 = (lower[i].depth + lower[j].depth) / 2;
+      faces.push({ d: d3, type: 'pavilion', a: apexBot, b: lower[i], c: lower[j] });
+    }
+    faces.sort(function (f1, f2) { return f1.d - f2.d; });
+
+    ctx.save();
+    ctx.shadowColor = 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',0.55)';
+    ctx.shadowBlur = 26;
+    for (var k = 0; k < faces.length; k++) {
+      var f = faces[k];
+      ctx.beginPath();
+      ctx.moveTo(f.a.x, f.a.y);
+      ctx.lineTo(f.b.x, f.b.y);
+      ctx.lineTo(f.c.x, f.c.y);
+      if (f.e) ctx.lineTo(f.e.x, f.e.y);
+      ctx.closePath();
+      var alpha = f.type === 'girdle' ? 0.85 : 0.72;
+      ctx.fillStyle = shade(rgb, f.d, alpha);
+      ctx.fill();
+      ctx.strokeStyle = shade(rgb, f.d, 0.9);
+      ctx.lineWidth = 0.6;
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    if (!reduce) requestAnimationFrame(draw);
+  }
+
+  requestAnimationFrame(draw);
+  if (reduce) draw(0);
+
+  var sync = 0;
+  function tickTelemetry() {
+    sync = Math.min(99.998, sync + Math.random() * 0.6);
+    var phase = sync < 40 ? 'LISTENING' : sync < 85 ? 'MIRRORING' : 'DUAL CONTROL';
+    telemetry.textContent = 'SYNC ' + sync.toFixed(3) + '% · ' + phase;
+    if (sync < 99.99 && !reduce) setTimeout(tickTelemetry, 400 + Math.random() * 500);
+  }
+  tickTelemetry();
+
+  var mq = window.matchMedia('(prefers-color-scheme: dark)');
+  mq.addEventListener && mq.addEventListener('change', function () { if (reduce) draw(0); });
+  new MutationObserver(function () { if (reduce) draw(0); })
+    .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+})();
+</script>
