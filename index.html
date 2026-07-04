@@ -90,13 +90,6 @@
     color: var(--ink);
   }
   .mark span { color: var(--ink-dim); }
-  .top .label {
-    font-family: var(--mono);
-    font-size: 10.5px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--ink-dim);
-  }
 
   .hero {
     padding: 88px 0 64px;
@@ -105,29 +98,6 @@
     gap: 24px;
     align-items: center;
   }
-  .eyebrow {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--accent-2);
-    margin: 0 0 22px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .eyebrow::before {
-    content: "";
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 8px 1px var(--accent);
-    flex: none;
-    animation: blink 3.2s ease-in-out infinite;
-  }
-  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
-
   h1 {
     font-family: var(--serif);
     font-weight: 400;
@@ -201,25 +171,15 @@
     border-top: 1px solid var(--line);
     padding: 28px 0 40px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
   }
   footer .mark { opacity: 0.8; }
-  footer .tag {
-    font-style: italic;
-    font-family: var(--serif);
-    font-size: 13px;
-    color: var(--ink-dim);
-  }
 
   @media (max-width: 760px) {
     .hero { grid-template-columns: 1fr; padding-bottom: 96px; }
     .crystal-wrap { order: -1; margin-bottom: 12px; }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .eyebrow::before { animation: none; }
-  }
 </style>
 
 <div class="veil"></div>
@@ -227,14 +187,12 @@
 <div class="wrap">
   <header class="top">
     <div class="mark">ndoli<span>.ai</span></div>
-    <div class="label">neural mirror &mdash; prototype 004</div>
   </header>
 
   <section class="hero">
     <div>
-      <p class="eyebrow">Second brain</p>
-      <h1>Preserve your&nbsp;thoughts.<br />Forever.</h1>
-      <p class="sub">It remembers everything you say &mdash; <em>and, in time, everything you would have said.</em></p>
+      <h1>Give them someone<br />to keep talking to.</h1>
+      <p class="sub">It already knows how you'd answer.</p>
       <div class="cta-row">
         <a class="cta" href="https://github.com/SteveHedden/ndoli">Begin preservation</a>
       </div>
@@ -247,7 +205,6 @@
 
   <footer>
     <div class="mark">ndoli<span>.ai</span></div>
-    <div class="tag">a mind, mirrored</div>
   </footer>
 </div>
 
