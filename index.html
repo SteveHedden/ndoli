@@ -109,14 +109,13 @@
     font-style: italic;
   }
 
-  .sub {
-    font-size: 17px;
-    line-height: 1.65;
+  .lead {
+    font-size: 15px;
+    letter-spacing: 0.02em;
     color: var(--ink-dim);
-    max-width: 46ch;
-    margin: 0 0 38px;
+    max-width: 40ch;
+    margin: 0 0 16px;
   }
-  .sub em { color: var(--ink); font-style: normal; }
 
   .cta-row { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
   .cta {
@@ -191,15 +190,16 @@
 
   <section class="hero">
     <div>
-      <h1>Give them<br />someone<br />to keep<br />talking&nbsp;to.</h1>
-      <p class="sub">It already knows how you'd answer.</p>
+      <p class="lead">You shouldn't have to remember everything.</p>
+      <h1>Preserve your&nbsp;mind.<br />Forever.</h1>
       <div class="cta-row">
         <a class="cta" href="https://github.com/SteveHedden/ndoli">Begin preservation</a>
+        <p class="fine">One day, you won't need a brain at all.</p>
       </div>
     </div>
     <div class="crystal-wrap">
       <canvas id="crystal" width="340" height="420" aria-label="A slowly rotating faceted crystal" role="img"></canvas>
-      <div class="telemetry" id="telemetry">SYNC 00.000% &middot; LISTENING</div>
+      <div class="telemetry" id="telemetry">SYNC 00% &middot; LISTENING</div>
     </div>
   </section>
 
@@ -300,10 +300,10 @@
 
   var sync = 0;
   function tickTelemetry() {
-    sync = Math.min(99.998, sync + Math.random() * 0.6);
+    sync = Math.min(100, sync + Math.random() * 0.6);
     var phase = sync < 40 ? 'LISTENING' : sync < 85 ? 'MIRRORING' : 'DUAL CONTROL';
-    telemetry.textContent = 'SYNC ' + sync.toFixed(3) + '% · ' + phase;
-    if (sync < 99.99 && !reduce) setTimeout(tickTelemetry, 400 + Math.random() * 500);
+    telemetry.textContent = 'SYNC ' + sync.toFixed(0) + '% · ' + phase;
+    if (sync < 100 && !reduce) setTimeout(tickTelemetry, 400 + Math.random() * 500);
   }
   tickTelemetry();
 
