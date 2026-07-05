@@ -1,3 +1,8 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ndoli — preserve your thoughts, forever</title>
 <style>
   :root {
@@ -175,11 +180,15 @@
   footer .mark { opacity: 0.8; }
 
   @media (max-width: 760px) {
-    .hero { grid-template-columns: 1fr; padding-bottom: 96px; }
-    .crystal-wrap { order: -1; margin-bottom: 12px; }
+    .wrap { padding: 0 20px; }
+    .hero { grid-template-columns: 1fr; padding: 48px 0 72px; }
+    .crystal-wrap { order: -1; margin-bottom: 28px; }
+    canvas#crystal { max-width: 260px; }
   }
 
 </style>
+</head>
+<body>
 
 <div class="veil"></div>
 
@@ -191,7 +200,7 @@
   <section class="hero">
     <div>
       <p class="lead">You shouldn't have to remember everything.</p>
-      <h1>Preserve your&nbsp;mind.<br />Forever.</h1>
+      <h1>Preserve your mind.<br />Forever.</h1>
       <div class="cta-row">
         <a class="cta" href="https://github.com/SteveHedden/ndoli">Begin preservation</a>
         <p class="fine">One day, you won't need a brain at all.</p>
@@ -313,3 +322,5 @@
     .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 })();
 </script>
+</body>
+</html>
