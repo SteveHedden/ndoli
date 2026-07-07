@@ -18,29 +18,6 @@
 <meta name="twitter:image" content="https://ndoli.ai/og-image.png">
 <style>
   :root {
-    --bg: #eceae4;
-    --bg-2: #e2ddd2;
-    --ink: #14171a;
-    --ink-dim: #5b5f66;
-    --accent: #3f6b78;
-    --accent-2: #7fa3ad;
-    --line: rgba(20,23,26,0.14);
-    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
-    --sans: "Neue Haas Grotesk Text Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    --mono: ui-monospace, "SF Mono", "Cascadia Mono", "Roboto Mono", Menlo, monospace;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #08090b;
-      --bg-2: #101216;
-      --ink: #d9d5cc;
-      --ink-dim: #8b8d92;
-      --accent: #b9d8e0;
-      --accent-2: #6f96a1;
-      --line: rgba(217,213,204,0.12);
-    }
-  }
-  :root[data-theme="dark"] {
     --bg: #08090b;
     --bg-2: #101216;
     --ink: #d9d5cc;
@@ -48,15 +25,9 @@
     --accent: #b9d8e0;
     --accent-2: #6f96a1;
     --line: rgba(217,213,204,0.12);
-  }
-  :root[data-theme="light"] {
-    --bg: #eceae4;
-    --bg-2: #e2ddd2;
-    --ink: #14171a;
-    --ink-dim: #5b5f66;
-    --accent: #3f6b78;
-    --accent-2: #7fa3ad;
-    --line: rgba(20,23,26,0.14);
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+    --sans: "Neue Haas Grotesk Text Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", "Cascadia Mono", "Roboto Mono", Menlo, monospace;
   }
 
   * { box-sizing: border-box; }
@@ -328,11 +299,6 @@
     if (sync < 100 && !reduce) setTimeout(tickTelemetry, 400 + Math.random() * 500);
   }
   tickTelemetry();
-
-  var mq = window.matchMedia('(prefers-color-scheme: dark)');
-  mq.addEventListener && mq.addEventListener('change', function () { if (reduce) draw(0); });
-  new MutationObserver(function () { if (reduce) draw(0); })
-    .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 })();
 </script>
 </body>
